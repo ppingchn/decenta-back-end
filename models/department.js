@@ -20,4 +20,5 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'RESTRICT',
     });
   };
+  return Department;
 };

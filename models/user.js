@@ -64,4 +64,5 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'RESTRICT',
     });
   };
+  return User;
 };

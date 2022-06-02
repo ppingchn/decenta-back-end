@@ -47,4 +47,5 @@ module.exports = (sequelize, DataTypes) => {
       }
     );
   };
+  return Project;
 };
