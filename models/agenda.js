@@ -1,14 +1,20 @@
 module.exports = (sequelize, DataTypes) => {
-  const Agenda = sequelize.define('Agenda', {
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isEmpty: true,
+  const Agenda = sequelize.define(
+    'Agenda',
+    {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isEmpty: true,
+        },
       },
+      description: DataTypes.STRING,
     },
-    description: DataTypes.STRING,
-  });
+    {
+      underscore: true,
+    }
+  );
   Agenda.associate = (models) => {
     Agenda.belongsTo(models.Meeting, {
       foreignKey: {
