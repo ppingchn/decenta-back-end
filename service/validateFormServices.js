@@ -1,6 +1,6 @@
 const validator = require('validator');
 const createError = require('./errorServices');
-module.exports = (signupForm) => {
+module.exports = (signupForm, pic) => {
   const {
     username,
     password,
@@ -15,9 +15,10 @@ module.exports = (signupForm) => {
   }
   if (validator.isEmpty(password + '')) {
     createError('Password is require', statusCode);
-  }
-  if (validator.isEmpty(confirmPassword + '')) {
-    createError('Comfirmpassword is require', statusCode);
+  } else if (validator.isEmpty(confirmPassword + '')) {
+    createError('Comfirm Password is require', statusCode);
+  } else if (password !== confirmPassword) {
+    createError('Password is not match', statusCode);
   }
   if (validator.isEmpty(firstName + '')) {
     createError('Firstname is require', statusCode);
@@ -28,4 +29,7 @@ module.exports = (signupForm) => {
   if (validator.isEmpty(department + '')) {
     createError('Department is require', statusCode);
   }
+  // if (!pic) {
+  //   createError('Profile Picture is required', statusCode);
+  // }
 };

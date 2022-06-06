@@ -23,7 +23,6 @@ exports.login = async (req, res, next) => {
       createError('Invalid username or Password', 400);
     }
     const token = genToken({ id: user.id });
-    console.log(token);
     res.status(200).json({ token });
   } catch (err) {
     console.log(err);
@@ -39,25 +38,20 @@ exports.register = async (req, res, next) => {
       firstName,
       lastName,
       phoneNumber,
+      profilePic,
       departmentId,
     } = req.body;
     validateRegisterForm(req.body);
-    if (!req.file) {
-      createError('Profile Picture is required');
-    }
-    if (password !== confirmPassword) {
-      createError('Password is not match', 400);
-    }
     const hashedPassword = bcrypt.hashSync(password, 10);
-    const photoUpload = await cloudinary.upload(req.file.path);
-    const sendProfilePic = photoUpload.secure_url;
+    // const photoUpload = await cloudinary.upload(profilePic);
+    // const sendProfilePic = photoUpload.secure_url;
     await User.create({
       username,
       password: hashedPassword,
       firstName,
       lastName,
       phoneNumber,
-      profilePic: sendProfilePic,
+      profilePic: null,
       departmentId,
     });
     res.status(201).json();

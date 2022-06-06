@@ -7,6 +7,7 @@ const cors = require('cors');
 const { sequelize, Department } = require('./models');
 const authRoute = require('./routes/authRoute');
 const errorMiddleware = require('./middleware/errorMiddleware');
+const departmentRoute = require('./routes/departnemtRoute');
 
 // using module
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
+app.use('/department', departmentRoute);
 
 app.use(errorMiddleware);
 
