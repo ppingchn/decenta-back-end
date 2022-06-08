@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 const { User } = require('../models');
 const createError = require('../service/errorServices');
+const userServices = require('../service/userServices');
 const genToken = require('../service/tokenService');
 const validateRegisterForm = require('../service/validateFormServices');
 const cloudinary = require('../config/cloudinary');
@@ -41,17 +42,18 @@ exports.register = async (req, res, next) => {
       profilePic,
       departmentId,
     } = req.body;
+    console.log(req.file);
     validateRegisterForm(req.body);
     const hashedPassword = bcrypt.hashSync(password, 10);
-    // const photoUpload = await cloudinary.upload(profilePic);
-    // const sendProfilePic = photoUpload.secure_url;
+    const photoUpload = await cloudinary.upload(req.file.path);
+    const sendProfilePic = photoUpload.secure_url;
     await User.create({
       username,
       password: hashedPassword,
       firstName,
       lastName,
       phoneNumber,
-      profilePic: null,
+      profilePic: sendProfilePic,
       departmentId,
     });
     res.status(201).json();
@@ -63,4 +65,11 @@ exports.register = async (req, res, next) => {
       fs.unlinkSync(req.file.path);
     }
   }
+};
+
+exports.getUser = async (req, res, next) => {
+  const user = JSON.parse(JSON.stringify(req.user));
+  const department = await userServices.getDepartmentName(user.departmentId);
+  user.department = department;
+  res.json({ user });
 };

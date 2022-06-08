@@ -8,12 +8,22 @@ const { sequelize, Department } = require('./models');
 const authRoute = require('./routes/authRoute');
 const errorMiddleware = require('./middleware/errorMiddleware');
 const departmentRoute = require('./routes/departnemtRoute');
+const meetingRoute = require('./routes/meetingRoute');
 
 // using module
 const app = express();
 
 // DB change use below this line
-// sequelize.sync({ force: true });
+// sequelize.sync({ alter: true });
+// Department.bulkCreate([
+//   { departmentName: 'Administative' },
+//   { departmentName: 'Treasurer' },
+//   { departmentName: 'Marketing' },
+//   { departmentName: 'Public Relation' },
+//   { departmentName: 'Event Organizer' },
+//   { departmentName: 'International Service' },
+//   { departmentName: 'Human Resource' },
+// ]);
 
 // middleware
 
@@ -23,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
 app.use('/department', departmentRoute);
+app.use('/meeting', meetingRoute);
 
 app.use(errorMiddleware);
 

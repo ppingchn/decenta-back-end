@@ -6,14 +6,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isEmpty: true,
+          notEmpty: true,
+        },
+      },
+      meetingType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
         },
       },
       meetingDate: {
         type: DataTypes.DATEONLY,
         allowNull: false,
         validate: {
-          isEmpty: true,
+          notEmpty: true,
         },
       },
     },
