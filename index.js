@@ -9,6 +9,8 @@ const authRoute = require('./routes/authRoute');
 const errorMiddleware = require('./middleware/errorMiddleware');
 const departmentRoute = require('./routes/departnemtRoute');
 const meetingRoute = require('./routes/meetingRoute');
+const projectRoute = require('./routes/projectRoute');
+const userRoute = require('./routes/userRoute');
 
 // using module
 const app = express();
@@ -34,6 +36,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/auth', authRoute);
 app.use('/department', departmentRoute);
 app.use('/meeting', meetingRoute);
+app.use('/project', projectRoute);
+app.use('/user', userRoute);
 
 app.use(errorMiddleware);
 

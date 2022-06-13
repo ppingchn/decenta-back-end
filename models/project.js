@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       projectType: {
-        type: DataTypes.ENUM(['ClubProject', 'ClubEvent']),
+        type: DataTypes.ENUM(['Club Project', 'Club Event']),
       },
     },
     {
