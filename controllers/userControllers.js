@@ -1,7 +1,10 @@
 const { User, Department } = require('../models');
 exports.getAllUsers = async (req, res, next) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+      include: { model: Department },
+    });
     res.status(200).json({ users });
   } catch (err) {
     next(err);
