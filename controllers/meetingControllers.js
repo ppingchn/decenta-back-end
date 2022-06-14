@@ -1,7 +1,7 @@
 const { Meeting, User, Agenda } = require('../models');
 exports.getAllMeeting = async (req, res, next) => {
   try {
-    const meeting = await Meeting.findAll();
+    const meeting = await Meeting.findAll({ order: ['meetingDate'] });
     res.status(200).json({ meeting });
   } catch (err) {
     next(err);

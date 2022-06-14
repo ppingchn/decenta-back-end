@@ -2,6 +2,7 @@ const { Project, User, Department } = require('../models');
 exports.getAllProject = async (req, res, next) => {
   try {
     const project = await Project.findAll({
+      order: ['dueDate'],
       include: {
         model: User,
         attributes: {
