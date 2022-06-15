@@ -67,6 +67,13 @@ exports.register = async (req, res, next) => {
   }
 };
 
+exports.updateUser = async (req, res, next) => {
+  const { id } = req.user;
+  const { username, firstName, lastName } = req.body;
+  await User.update({ username, firstName, lastName }, { where: { id } });
+  res.status(200).json({});
+};
+
 exports.getUser = async (req, res, next) => {
   const user = JSON.parse(JSON.stringify(req.user));
   const department = await userServices.getDepartmentName(user.departmentId);
