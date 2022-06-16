@@ -1,11 +1,11 @@
 module.exports = (err, req, res, next) => {
   console.log(err);
+  console.log(err.message);
   if (
     err.name === 'SequelizeValidationError' ||
     err.name === 'SequelizeUniqueConstraintError'
   ) {
     err.statusCode = 400;
-    err.message = err.message;
   }
   if (err.name === 'TokenExpiredError') {
     err.statusCode = 401;

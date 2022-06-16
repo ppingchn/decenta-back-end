@@ -1,4 +1,4 @@
-const { Meeting, User, Agenda } = require('../models');
+const { Meeting, User, Agenda, sequelize } = require('../models');
 exports.getAllMeeting = async (req, res, next) => {
   try {
     const meeting = await Meeting.findAll({ order: ['meetingDate'] });
@@ -54,12 +54,15 @@ exports.getSecretary = async (req, res, next) => {
   }
 };
 exports.deleteMeeting = async (req, res, next) => {
+  const t = await sequelize.transaction();
   try {
     const { id } = req.params;
-    await Agenda.destroy({ where: { meetingId: id } });
-    await Meeting.destroy({ where: { id } });
+    await Agenda.destroy({ where: { meetingId: id } }, { transaction: t });
+    await Meeting.destroy({ where: { id } }, { transaction: t });
+    await t.commit();
     res.status(204).json();
   } catch (err) {
+    await t.rollback();
     next(err);
   }
 };

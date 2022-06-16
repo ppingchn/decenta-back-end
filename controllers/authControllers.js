@@ -69,8 +69,8 @@ exports.register = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
   const { id } = req.user;
-  const { username, firstName, lastName } = req.body;
-  await User.update({ username, firstName, lastName }, { where: { id } });
+  const { firstName, lastName, phoneNumber } = req.body;
+  await User.update({ firstName, lastName, phoneNumber }, { where: { id } });
   res.status(200).json({});
 };
 

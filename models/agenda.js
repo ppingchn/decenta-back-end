@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      description: DataTypes.STRING,
     },
     {
       underscore: true,
